@@ -39,6 +39,18 @@ USB device 001:039   Allwinner H616    33802000:4c004808:01474788:2c6c22d1
 
 (The image is just the image from the above website; no padding required.)
 
+# JTAG
+
+Luckily JTAG mode is already enabled too:
+
+```
+$ sunxi-fel readl 0x0300B0B4
+0x07373733
+```
+
+If that was not the case, we would use `writel` to write that value to the
+register.
+
 # Things to do in FEL mode
 
 Apart from the SPI flashing which we did, there are far more important things
