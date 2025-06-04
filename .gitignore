@@ -1,2 +1,5 @@
-extern
-q
+/extern
+/q
+/bootscript.scr
+/bootscript.cmd
+/buildroot-2025.02.3
