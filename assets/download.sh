@@ -2,6 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 DOWNLOAD_DIR=$(realpath $SCRIPT_DIR/../extern)
+QEMU_IMG=$(realpath $SCRIPT_DIR/../q)/qemu-img
 mkdir -p $DOWNLOAD_DIR
 echo Downloading files to $DOWNLOAD_DIR...
 
@@ -38,9 +39,11 @@ fi
 FILE=$DOWNLOAD_DIR/Orangepipc_2.0.8_debian_buster_server_linux5.4.65.img
 if [ ! -f $FILE ]; then
     7z x -o$DOWNLOAD_DIR $(echo $FILE | sed 's/img$/7z/')
+    $QEMU_IMG resize $FILE 2G
 fi
 
 FILE=$DOWNLOAD_DIR/Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.img
 if [ ! -f $FILE ]; then
     7z x -o$DOWNLOAD_DIR $(echo $FILE | sed 's/img$/7z/')
+    $QEMU_IMG resize $FILE 4G
 fi
