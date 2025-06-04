@@ -114,7 +114,11 @@ build/src/openocd:
 		../openocd/configure && \
 		make -j
 
+# FEL mode boot - around 45s to upload to device
 fel-boot:
+	sed s/RAMDISK_SIZE/$$(stat -c %s "buildroot-2025.02.3/output/images/rootfs.cpio.uboot" | rax2 -)/ assets/bootscript.cmd > ./bootscript.cmd
+	mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "boot script" -d bootscript.cmd bootscript.scr
 	sunxi-fel -v uboot u-boot/u-boot-sunxi-with-spl.bin \
-		write 0x40080000 linux/arch/arm64/boot/Image \
-		write 0x4FF00000 buildroot-2025.02.3/output/images/rootfs.cpio.uboot
+		write 0x40080000 linux/arch/arm64/boot/Image.gz \
+		write 0x4FF00000 buildroot-2025.02.3/output/images/rootfs.cpio.uboot \
+    	write 0x4FC00000 bootscript.scr
