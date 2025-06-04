@@ -7,3 +7,6 @@
 [submodule "u-boot"]
 	path = u-boot
 	url = git@github.com:electricworry/u-boot.git
+[submodule "trusted-firmware-a"]
+	path = trusted-firmware-a
+	url = https://github.com/TrustedFirmware-A/trusted-firmware-a.git
