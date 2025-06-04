@@ -57,7 +57,7 @@ qemu-kern-h3: q/qemu-system-arm
 download-extern: q/qemu-img
 	assets/download.sh
 
-extract-artefacts: download-extern
+extract-artefacts: mount-orange-pi-pc mount-orange-pi-zero-3
 	mkdir -p $(OPZ3_ARTIFACT_DIR)
 	cp /mnt/orange-pi-zero-3/boot/Image                                        $(OPZ3_ARTIFACT_DIR)
 	cp /mnt/orange-pi-zero-3/boot/initrd.img-6.1.31-sun50iw9                   $(OPZ3_ARTIFACT_DIR)
@@ -84,7 +84,10 @@ mount-orange-pi-pc: download-extern
 	)
 
 umount-orange-pi-pc:
-	mountpoint -q /mnt/orange-pi-pc && sudo umount /mnt/orange-pi-pc
+	-mountpoint -q /mnt/orange-pi-pc && sudo umount /mnt/orange-pi-pc
+	if [ -d /mnt/orange-pi-pc ]; then \
+		sudo rmdir /mnt/orange-pi-pc; \
+	fi
 
 mount-orange-pi-zero-3: download-extern
 	mountpoint -q /mnt/orange-pi-zero-3 || ( \
@@ -95,7 +98,10 @@ mount-orange-pi-zero-3: download-extern
 	)
 
 umount-orange-pi-zero-3:
-	mountpoint -q /mnt/orange-pi-zero-3 && sudo umount /mnt/orange-pi-zero-3
+	-mountpoint -q /mnt/orange-pi-zero-3 && sudo umount /mnt/orange-pi-zero-3
+	if [ -d /mnt/orange-pi-zero-3 ]; then \
+		sudo rmdir /mnt/orange-pi-zero-3; \
+	fi
 
 ############
 # Physical #
