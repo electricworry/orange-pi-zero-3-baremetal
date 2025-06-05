@@ -1,0 +1,14 @@
+{
+	"files": [
+		{
+			"path": "qemu/hw/arm/mps3r.c",
+			"bookmarks": [
+				{
+					"line": 261,
+					"column": 26,
+					"label": ""
+				}
+			]
+		}
+	]
+}

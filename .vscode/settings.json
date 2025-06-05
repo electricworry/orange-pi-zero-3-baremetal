@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.inc": "c",
+        "allwinner-h616.h": "c",
+        "cpu-qom.h": "c",
+        "xlnx-versal.h": "c"
+    }
+}
