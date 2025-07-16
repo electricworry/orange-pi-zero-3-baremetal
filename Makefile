@@ -19,18 +19,38 @@ qemu-kernel-only-h616: q/qemu-system-aarch64
 # QEMU: image-only
 qemu-img-h616: q/qemu-system-aarch64
 	@echo "[\`Ctrl-A x\` to terminate]"
-	q/qemu-system-aarch64 -M orangepi-zero3 -nographic \
+	q/qemu-system-aarch64 -M orangepi-zero3  -D ./log.txt -d unimp -nographic \
 		-sd extern/Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.img
 
-# QEMU: full
-qemu-kern-h616: q/qemu-system-aarch64
+# QEMU: full - orangepi
+aaa: q/qemu-system-aarch64
 	@echo "[\`Ctrl-A x\` to terminate]"
 	q/qemu-system-aarch64 -M orangepi-zero3 -D ./log.txt -d unimp -nographic \
 		-kernel $(OPZ3_ARTIFACT_DIR)/Image \
-		-append 'console=ttyS0,115200 root=/dev/mmcblk0p1 earlycon' \
+		-append 'loglevel=8 console=ttyS0,115200 root=/dev/mmcblk0p1 earlycon' \
 		-dtb $(OPZ3_ARTIFACT_DIR)/sun50i-h618-orangepi-zero3.dtb \
 		-initrd $(OPZ3_ARTIFACT_DIR)/initrd.img-6.1.31-sun50iw9 \
 		-sd extern/Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.img
+
+# QEMU: full - mainline
+bbb: q/qemu-system-aarch64
+	@echo "[\`Ctrl-A x\` to terminate]"
+	q/qemu-system-aarch64 -M orangepi-zero3 -s -S -D ./log.txt -d unimp -nographic \
+		-kernel linux/arch/arm64/boot/Image \
+		-append 'core.dyndbg="file * +pflm" of_regulator.dyndbg="file * +pflm" pinmux.dyndbg="file * +pflm" loglevel=8 console=ttyS0,115200 root=/dev/mmcblk0p1 earlycon' \
+		-dtb linux/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb \
+		-initrd buildroot-2025.02.3/output/images/rootfs.cpio.lzma \
+		-sd extern/Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.img
+
+# QEMU: full - armbian
+ccc: q/qemu-system-aarch64
+	@echo "[\`Ctrl-A x\` to terminate]"
+	q/qemu-system-aarch64 -M orangepi-zero3 -D ./log.txt -d unimp -nographic \
+		-kernel extern/armbian/Image \
+		-append 'loglevel=8 console=ttyS0,115200 root=/dev/mmcblk0p1 earlycon' \
+		-dtb extern/armbian/sun50i-h618-orangepi-zero3.dtb \
+		-initrd extern/armbian/initrd.img-6.15.0-edge-sunxi64 \
+		-sd armbian-build/output/images/Armbian-unofficial_25.08.0-trunk_Orangepizero3_bookworm_edge_6.15.0_minimal.img
 
 # QEMU: image-only
 qemu-img-h3: q/qemu-system-arm

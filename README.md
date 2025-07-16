@@ -67,6 +67,15 @@ If you want to perform tracing: `-trace "*"`. Again `-trace help` lists availabl
 
 The following items have not make it to a makefile yet.
 
+### Armbian
+
+```
+# apt install qemu-user-static
+git clone https://github.com/armbian/build.git armbian-build
+cd armbian-build
+./compile.sh build BOARD=orangepizero3 BRANCH=edge BUILD_DESKTOP=no BUILD_MINIMAL=yes EXTRAWIFI=no KERNEL_GIT=full RELEASE=bookworm KERNEL_CONFIGURE=no
+```
+
 ### rootfs 8m
 
 ```
