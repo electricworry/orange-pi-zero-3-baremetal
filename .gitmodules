@@ -10,3 +10,6 @@
 [submodule "trusted-firmware-a"]
 	path = trusted-firmware-a
 	url = https://github.com/TrustedFirmware-A/trusted-firmware-a.git
+[submodule "armbian-build"]
+	path = armbian-build
+	url = https://github.com/armbian/build.git
